@@ -45,16 +45,12 @@ public class ExportUtils {
 	 * @param queryResult
 	 *            результат запроса, данными которого будет заполнен лист.
 	 */
-	public void exportToSheet(Workbook workbook, QueryResult queryResult) {
-		try {
-			log.trace("Записываем данные на страницу");
-			Sheet sheet = workbook.createSheet(queryResult.getDescription());
-			createSheetHeader(sheet, queryResult.getColumnsName());
-			writeResultData(sheet, queryResult);
-			setAutoSizeColumn(sheet, queryResult.getColumnsName().size());
-		} catch (SQLException e) {
-			log.error("Невозможно записать данные на страницу", e);
-		}
+	public void exportToSheet(Workbook workbook, QueryResult queryResult) throws IOException, SQLException {
+		log.trace("Записываем данные на страницу");
+		Sheet sheet = workbook.createSheet(queryResult.getDescription());
+		createSheetHeader(sheet, queryResult.getColumnsName());
+		writeResultData(sheet, queryResult);
+		setAutoSizeColumn(sheet, queryResult.getColumnsName().size());
 	}
 
 	/**
@@ -65,16 +61,12 @@ public class ExportUtils {
 	 * @param title
 	 *            заголовок, с которым будет создана книга.
 	 */
-	public void writeWorkbook(Workbook workbook, String title) {
+	public void writeWorkbook(Workbook workbook, String title) throws IOException {
 		FileOutputStream outputSteam;
-		try {
-			outputSteam = new FileOutputStream(String.format("%s.xls", title));
-			log.trace(String.format("Записываем все выгруженные данные в Excel: \n\t %s.xls \n", title));
-			workbook.write(outputSteam);
-			outputSteam.close();
-		} catch (IOException e) {
-			log.error("Невозможно создать Excel", e);
-		}
+		outputSteam = new FileOutputStream(String.format("%s.xls", title));
+		log.trace(String.format("Записываем все выгруженные данные в Excel: \n\t %s.xls \n", title));
+		workbook.write(outputSteam);
+		outputSteam.close();
 	}
 
 	/**
@@ -107,7 +99,7 @@ public class ExportUtils {
 	 *            результат запроса, который надо выгрузить.
 	 * @throws SQLException
 	 */
-	private void writeResultData(Sheet sheet, QueryResult queryResult) throws SQLException {
+	private void writeResultData(Sheet sheet, QueryResult queryResult) throws IOException, SQLException {
 		log.trace("Записываем результаты выгрузки \n");
 		int rowNum = 1;
 		while (queryResult.getResultSet().next()) {
