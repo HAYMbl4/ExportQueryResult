@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -36,7 +37,7 @@ public class Runner {
 			connection = queryUtils.createConnection(report.getConnectionInfo());
 			for (QueryTemplate template : report.getQueryTemplates()) {
 				QueryResult queryResult = queryUtils.executeQuery(connection, template);
-				if (!queryResult.getResultSet().isAfterLast()) {
+				if (queryResult.getResultSet().isBeforeFirst()) {
 					exportUtils.exportToSheet(workbook, queryResult);
 				} else {
 					log.trace("Данных нет \n");
@@ -44,8 +45,8 @@ public class Runner {
 				queryUtils.closeResultSet(queryResult.getResultSet());
 			}
 			exportUtils.writeWorkbook(workbook, report.getTitle());
-		} catch (SQLException e) {
-			log.error(e);
+		} catch (Exception e) {
+			log.error("Возникла ошибка", e);
 		} finally {
 			queryUtils.closeConnection(connection);
 		}
