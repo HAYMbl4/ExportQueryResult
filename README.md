@@ -12,7 +12,7 @@
 
 ###Релизы
 
-Для удобства работы выпущен [релиз ver-1.0.0](https://github.com/HAYMbl4/ExportQueryResult/releases/tag/ver-1.0.2), к которому прикреплен архив с ***runner.bat***, который запускает работу программы.
+Для удобства работы выпущен [релиз ver-1.0.2](https://github.com/HAYMbl4/ExportQueryResult/releases/tag/ver-1.0.2), к которому прикреплен архив с ***runner.bat***, который запускает работу программы.
 
 ###Как с ней работать
 
