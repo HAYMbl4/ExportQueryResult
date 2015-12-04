@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Report title="Отчет об ошибках миграции">
+	<Connection>
+		<ip>192.168.100.40</ip>
+		<port>1521</port>
+		<db>DB17</db>
+		<user>argus_sys</user>
+		<password>vk38gwwm</password>
+	</Connection>
+	<Queries>
+		<Query>
+			<description>Список номенклатур</description>
+			<template>
+				select id as "Айди", name as "Наименование" from resource_type
+			</template>
+		</Query>
+		<Query>
+			<description>Список складов</description>
+			<template>
+				select id as "Айди", storage_name as "Наименование" from rms_.account where storage_name is not null
+			</template>
+		</Query>	
+		<Query>
+			<description>Список складов2</description>
+			<template>
+				select id as "Айди", storage_name as "Наименование" from rms_.account where storage_name = 'ddddddd'
+			</template>
+		</Query>			
+	</Queries>
+</Report>
