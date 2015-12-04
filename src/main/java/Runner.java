@@ -36,7 +36,7 @@ public class Runner {
 			connection = queryUtils.createConnection(report.getConnectionInfo());
 			for (QueryTemplate template : report.getQueryTemplates()) {
 				QueryResult queryResult = queryUtils.executeQuery(connection, template);
-				if (queryResult.getResultSet().next()) {
+				if (!queryResult.getResultSet().isAfterLast()) {
 					exportUtils.exportToSheet(workbook, queryResult);
 				} else {
 					log.trace("Данных нет \n");
